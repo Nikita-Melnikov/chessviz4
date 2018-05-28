@@ -3,33 +3,39 @@
 #include <ctest.h>
 #include <stdbool.h>
 char a[9][9];
-//1
-CTEST(syntaxis, Correct_Syn0)
+
+CTEST(Syntax, Correct_Syntax_Check)
 {
-	bool result = moveboard(a, "e228-e1488");
+	bool result = moveboard(a, "e20-e40");
 	ASSERT_FALSE(result);
 }
-//2
-CTEST(syntaxis, Correct_Syn1)
+
+CTEST(Syntax, Incorrect_Syntax_Check)
 {
-	bool result = moveboard(a, "z2-z3");
+	bool result = moveboard(a, "Pb2-b4");
 	ASSERT_FALSE(result);
 }
-//3
-CTEST(syntaxis, Correct_Syn2)
+
+CTEST (Syntax, Incorrect_Figure_Move)
 {
-	bool result = moveboard(a, "e1488-e228");
+	bool result = moveboard(a, "c1-c3");
 	ASSERT_FALSE(result);
 }
-//4
-CTEST(syntaxis, Correct_Syn3)
+
+CTEST (Syntax, Incorrect_Movemet_Split)
 {
-	bool result = moveboard(a, "e2_e4");
+	bool result = moveboard(a, "d1=d3");
 	ASSERT_FALSE(result);
 }
-//5
-CTEST(syntaxis, Correct_Syn4)
+
+CTEST (Syntax, Incorrect_Syntax_Order)
 {
-	bool result = moveboard(a, "e2-e4");
-	ASSERT_TRUE(result);
+	bool result = moveboard(a, "1e-3e");
+	ASSERT_FALSE(result);
+}
+
+int main (int argc, const char** argv)
+{
+	makeboard(a);
+	return ctest_main(argc, argv);
 }
